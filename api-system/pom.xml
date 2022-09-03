@@ -16,6 +16,12 @@
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
 
-
+    <dependencies>
+        <!-- springboot项目必须引入此jar包才能正常启动 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>
