@@ -1,0 +1,14 @@
+spring:
+  profiles:
+    active: dev
+  application:
+    name: api-system
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 120.77.155.230:8848
+        namespace: default
+      config:
+        file-extension: yaml
+        namespace: default
+        server-addr: 120.77.155.230:8848
