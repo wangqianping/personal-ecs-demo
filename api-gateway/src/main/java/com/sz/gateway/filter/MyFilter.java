@@ -9,7 +9,7 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Component
-public class LogFilter implements GlobalFilter, Ordered {
+public class MyFilter implements GlobalFilter, Ordered {
 
 
     @Override
