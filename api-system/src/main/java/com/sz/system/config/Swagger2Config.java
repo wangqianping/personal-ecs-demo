@@ -25,7 +25,7 @@ public class Swagger2Config {
     public Docket productDocket() {
         return new Docket(DocumentationType.SWAGGER_2)
                 .groupName("api-system")
-                .apiInfo(new ApiInfoBuilder().title("ESC-DEMO Project API").description("测试接口文档").version("1.0").contact(new Contact("王前平","","1981517703@qq.com")).build())
+                .apiInfo(new ApiInfoBuilder().title("ECS-DEMO Project API").description("接口文档").version("1.0").contact(new Contact("王前平","","1981517703@qq.com")).build())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.sz.system.controller"))
                 .build();
