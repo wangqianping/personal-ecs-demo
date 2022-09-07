@@ -4,13 +4,16 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.*;
 
-@Api(tags = "整合测试")
+/**
+ * @author wangqianping
+ */
+@Api(tags = "登入认证")
 @RequestMapping("/login")
 @RestController
-public class LoginController {
+public class AuthController {
 
     @ApiOperation(value = "测试接口")
-    @RequestMapping("/test")
+    @GetMapping("/test")
     public String test(){
         System.out.println("111111");
         return "test";
