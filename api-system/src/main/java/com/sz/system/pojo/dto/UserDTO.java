@@ -1,9 +1,5 @@
-package com.sz.system.pojo.entity;
+package com.sz.system.pojo.dto;
 
-import com.baomidou.mybatisplus.annotation.IdType;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.sz.common.entity.BaseEntity;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -14,11 +10,8 @@ import java.io.Serializable;
  * @date 2022-09-07
  */
 @Data
-@TableName("user")
-public class User extends BaseEntity implements Serializable {
+public class UserDTO implements Serializable {
 
-    @TableId(type = IdType.AUTO)
-    private Integer id;
 
     @ApiModelProperty(value = "姓名")
     private String name;
@@ -34,5 +27,6 @@ public class User extends BaseEntity implements Serializable {
 
     @ApiModelProperty(value = "邮箱")
     private String email;
+
 
 }

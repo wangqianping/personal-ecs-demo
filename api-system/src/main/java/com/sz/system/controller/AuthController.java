@@ -1,22 +1,47 @@
 package com.sz.system.controller;
 
+import com.sz.common.response.Response;
+import com.sz.system.pojo.dto.UserDTO;
+import com.sz.system.pojo.entity.User;
+import com.sz.system.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
+
+import javax.annotation.Resource;
 
 /**
  * @author wangqianping
  */
 @Api(tags = "登入认证")
-@RequestMapping("/login")
+@RequestMapping("/auth")
 @RestController
 public class AuthController {
 
-    @ApiOperation(value = "测试接口")
-    @GetMapping("/test")
-    public String test(){
-        System.out.println("111111");
-        return "test";
+    @Resource
+    private UserService userService;
+
+    @ApiOperation(value = "注册接口")
+    @PostMapping("/register")
+    public Response register(@RequestBody UserDTO userDTO) {
+        User user = new User();
+        BeanUtils.copyProperties(userDTO, user);
+        userService.save(user);
+        return Response.success();
     }
+
+    @ApiOperation(value = "发送验证码")
+    @GetMapping("/sendVerificationCode")
+    public Response<String> sendVerificationCode(@RequestParam("email") String email) {
+        return Response.success("12345");
+    }
+
+    @ApiOperation(value = "账号密码登入")
+    @PostMapping("/login")
+    public Response login(@RequestBody UserDTO userDTO) {
+        return Response.success();
+    }
+
 
 }
