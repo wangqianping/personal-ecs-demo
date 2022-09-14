@@ -40,6 +40,7 @@ public class AuthController {
     @ApiOperation(value = "账号密码登入")
     @PostMapping("/login")
     public Response login(@RequestBody UserDTO userDTO) {
+        userService.login(userDTO);
         return Response.success();
     }
 

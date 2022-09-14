@@ -2,7 +2,7 @@
   <div class="login">
     <el-form :model="user" class="demo-form-inline" label-width="200px">
       <el-form-item label="账号">
-        <el-input v-model="user.username" placeholder="Please input account"/>
+        <el-input v-model="user.account" placeholder="Please input account"/>
       </el-form-item>
       <el-form-item label="密码">
         <el-input v-model="user.password" type="password" placeholder="Please input password"/>
@@ -20,7 +20,7 @@ export default {
   data() {
     return {
       user: {
-        username: '',
+        account: '',
         password: ''
       }
     }
@@ -28,10 +28,13 @@ export default {
   methods: {
     login() {
       // console.log(this.user)
-      this.$axios.get("/user/listUser")
+      this.$axios.post("/auth/login", this.user)
           .then(
               rsp => {
-                console.log(rsp.data)
+                const data = rsp.data;
+                if (data.code == 200) {
+                  alert("登入成功，跳转功能待补充")
+                }
               })
           .catch(
               error => {
