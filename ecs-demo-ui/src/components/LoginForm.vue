@@ -1,16 +1,18 @@
 <template>
-  <div class="login">
-    <el-form :model="user" class="demo-form-inline" label-width="200px">
-      <el-form-item label="账号">
-        <el-input v-model="user.account" placeholder="Please input account"/>
-      </el-form-item>
-      <el-form-item label="密码">
-        <el-input v-model="user.password" type="password" placeholder="Please input password"/>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="login">登入</el-button>
-      </el-form-item>
-    </el-form>
+  <div id="background"> 
+    <div class="login">
+      <el-form :model="user" class="demo-form-inline" label-width="40px" >
+        <el-form-item  class="input-reader-name" id="account" >
+          <el-input v-model="user.account" placeholder="Please input account" suffix-icon="el-icon-user"/>
+        </el-form-item>
+        <el-form-item class="input-reader-name">
+          <el-input v-model="user.password" type="password" placeholder="Please input password" suffix-icon="el-icon-lock"/>
+        </el-form-item>
+        <el-form-item>
+          <el-button id="button" type="primary" @click="login">登入</el-button>
+        </el-form-item>
+      </el-form>
+    </div>
   </div>
 </template>
 
@@ -46,12 +48,43 @@ export default {
 </script>
 
 <style scoped>
+
+#background{
+  background-image: url('../assets/background.jpg');
+  width:100%;
+  height:100%;
+  position:fixed;
+  background-size:100% 100%;
+}
+
 .login {
-  width: 500px;
-  height: 200px;
+  width: 400px;
+  height: 250px;
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+  background-color:rgba(66, 79, 119, 0.843);
+  /* border: 1px solid; */
 }
+
+::v-deep .input-reader-name{
+    width: 60%;
+    padding-left: 15%;
+    padding-right: 15%;
+}
+
+#account{
+  padding-top: 10%;
+}
+
+.lable{
+  color: black;
+  font-weight: 900;
+}
+
+#button{
+  margin-left: -10%;
+}
+
 </style>
