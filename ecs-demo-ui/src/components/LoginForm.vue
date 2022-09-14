@@ -27,18 +27,17 @@ export default {
   },
   methods: {
     login() {
-      // console.log(this.user)
       this.$axios.post("/auth/login", this.user)
           .then(
               rsp => {
                 const data = rsp.data;
                 if (data.code == 200) {
-                  alert("登入成功，跳转功能待补充")
+                  this.$router.push('/index')
                 }
               })
           .catch(
               error => {
-                console.log(error)
+                alert(error)
               })
     }
 
