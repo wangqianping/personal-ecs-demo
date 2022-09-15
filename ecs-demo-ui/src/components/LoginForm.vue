@@ -32,12 +32,22 @@ export default {
   },
   methods: {
     login() {
-
       this.$axios.post("/auth/login", this.user)
           .then(
               rsp => {
                 const data = rsp.data;
                 if (data.code == 200) {
+                                  
+                   const userInfo = {
+                      token:'12345',
+                      userId:'001',
+                      username:'test',
+                      account:'admin'
+                   } ;
+
+                   this.$store.commit('SET_TOKEN',userInfo.token);
+                   this.$store.commit('SET_USER',userInfo)
+
                   this.$router.push('/index')
                 } else {
                   this.$message.error({
