@@ -13,6 +13,8 @@ import java.util.function.Predicate;
 
 /**
  * 自定义断言
+ * @author wangqianping
+ * @since 2022-09-15
  */
 @Component
 public class MyRoutePredicateFactory extends AbstractRoutePredicateFactory<MyRoutePredicateFactory.Config> {
@@ -23,6 +25,7 @@ public class MyRoutePredicateFactory extends AbstractRoutePredicateFactory<MyRou
         super(MyRoutePredicateFactory.Config.class);
     }
 
+    @Override
     public List<String> shortcutFieldOrder() {
         return Arrays.asList("queryParam");
     }

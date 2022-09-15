@@ -8,8 +8,11 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
+/**
+ * JWT 拦截器
+ */
 @Component
-public class MyFilter implements GlobalFilter, Ordered {
+public class JwtFilter implements GlobalFilter, Ordered {
 
 
     @Override

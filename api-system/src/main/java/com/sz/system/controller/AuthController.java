@@ -23,6 +23,13 @@ public class AuthController {
     @Resource
     private UserService userService;
 
+    @ApiOperation(value = "账号密码登入")
+    @PostMapping("/login")
+    public Response login(@RequestBody UserDTO userDTO) throws ServiceException {
+        userService.login(userDTO);
+        return Response.success();
+    }
+
     @ApiOperation(value = "注册接口")
     @PostMapping("/register")
     public Response register(@RequestBody UserDTO userDTO) {
@@ -36,13 +43,6 @@ public class AuthController {
     @GetMapping("/sendVerificationCode")
     public Response<String> sendVerificationCode(@RequestParam("email") String email) {
         return Response.success("12345");
-    }
-
-    @ApiOperation(value = "账号密码登入")
-    @PostMapping("/login")
-    public Response login(@RequestBody UserDTO userDTO) throws ServiceException {
-        userService.login(userDTO);
-        return Response.success();
     }
 
 
