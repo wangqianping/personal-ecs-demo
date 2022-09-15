@@ -1,7 +1,7 @@
 import Router from "vue-router";
 import LoginForm from "@/components/LoginForm";
 import indexForm from "@/components/IndexForm";
-// import store from "@/store";
+import store from "@/store";
 
 
 const router = new Router({
@@ -19,14 +19,12 @@ const router = new Router({
     }
 )
 
-// router.beforeEach((to,from,next) =>{
-//     console.log(to,from,next)
-//     if(to.path == '/' && store.getters.token != '' ){
-//         next('/index')
-//     }
-//     if(store.getters.token == ''){
-//         next('/')
-//     }
-// })
+router.beforeEach((to,from,next) =>{
+    if(store.getters.TOKEN === '' && to.path!="/"){
+        next('/')
+    }else{
+        next()
+    }
+})
 
 export default router
