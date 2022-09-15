@@ -35,7 +35,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         //todo 密码校验待调整，数据库不能存储明文密码
-        if (!userDTO.getPassword().equals(userDTO.getPassword())) {
+        if (!userDTO.getPassword().equals(user.getPassword())) {
             throw new ServiceException(ExceptionEnum.PASSWORD_ERROR);
         }
 

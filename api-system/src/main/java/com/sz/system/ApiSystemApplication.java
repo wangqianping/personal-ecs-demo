@@ -10,7 +10,7 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
  * @author wangqianping
  * @date 2022-08-19
  */
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages = "com.sz")
 @EnableKnife4j
 public class ApiSystemApplication {
 

@@ -1,12 +1,14 @@
 <template>
-  <div id="background"> 
+  <div id="background">
     <div class="login">
-      <el-form :model="user" class="demo-form-inline" label-width="40px" >
-        <el-form-item  class="input-reader-name" id="account" >
-          <el-input v-model="user.account" placeholder="Please input account" suffix-icon="el-icon-user"/>
+      <el-form :model="user" class="demo-form-inline" label-width="40px">
+        <el-form-item class="input-reader-name" id="account">
+          <el-input v-model="user.account" aria-required="true" placeholder="Please input account"
+                    suffix-icon="el-icon-user"/>
         </el-form-item>
         <el-form-item class="input-reader-name">
-          <el-input v-model="user.password" type="password" placeholder="Please input password" suffix-icon="el-icon-lock"/>
+          <el-input v-model="user.password" aria-required="true" type="password" placeholder="Please input password"
+                    suffix-icon="el-icon-lock"/>
         </el-form-item>
         <el-form-item>
           <el-button id="button" type="primary" @click="login">登入</el-button>
@@ -17,6 +19,7 @@
 </template>
 
 <script>
+
 export default {
   name: 'LoginForm',
   data() {
@@ -29,18 +32,28 @@ export default {
   },
   methods: {
     login() {
+
       this.$axios.post("/auth/login", this.user)
           .then(
               rsp => {
                 const data = rsp.data;
                 if (data.code == 200) {
                   this.$router.push('/index')
+                } else {
+                  this.$message.error({
+                    message: data.message,
+                    center: true
+                  })
                 }
               })
           .catch(
               error => {
-                alert(error)
+                this.$message.error({
+                  message: error.message,
+                  center: true
+                })
               })
+
     }
 
   }
@@ -49,12 +62,12 @@ export default {
 
 <style scoped>
 
-#background{
+#background {
   background-image: url('../assets/background.jpg');
-  width:100%;
-  height:100%;
-  position:fixed;
-  background-size:100% 100%;
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  background-size: 100% 100%;
 }
 
 .login {
@@ -64,26 +77,26 @@ export default {
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color:rgba(66, 79, 119, 0.843);
+  background-color: rgba(66, 79, 119, 0.843);
   /* border: 1px solid; */
 }
 
-::v-deep .input-reader-name{
-    width: 60%;
-    padding-left: 15%;
-    padding-right: 15%;
+::v-deep .input-reader-name {
+  width: 60%;
+  padding-left: 15%;
+  padding-right: 15%;
 }
 
-#account{
+#account {
   padding-top: 10%;
 }
 
-.lable{
+.lable {
   color: black;
   font-weight: 900;
 }
 
-#button{
+#button {
   margin-left: -10%;
 }
 
