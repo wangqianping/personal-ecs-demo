@@ -20,16 +20,16 @@ import java.util.Map;
 public class JwtUtil {
 
 
-    private final Integer EXPIRATION = 30 * 60;
+    private static final Integer EXPIRATION = 30 * 60;
 
-    private final String SECRET = "test_secret_at_20220915_by_wqp";
+    private static final String SECRET = "test_secret_at_20220915_by_wqp";
 
     /**
      * 生成用户token
      *
      * @return
      */
-    public String createToken(User user) {
+    public static String createToken(User user) {
 
         //过期时间
         Date expireDate = new Date(System.currentTimeMillis() + EXPIRATION * 1000);
@@ -54,7 +54,7 @@ public class JwtUtil {
     /**
      * 解析token
      */
-    public Map<String, Claim> verifyToken(String token) {
+    public static Map<String, Claim> verifyToken(String token) {
         DecodedJWT jwt;
         try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
@@ -73,8 +73,8 @@ public class JwtUtil {
      * @param token
      * @return
      */
-    public User getUser(String token) {
-        Map<String, Claim> stringClaimMap = this.verifyToken(token);
+    public static User getUser(String token) {
+        Map<String, Claim> stringClaimMap = verifyToken(token);
         User user = new User();
         user.setId(stringClaimMap.get("id").asInt());
         user.setAccount(stringClaimMap.get("account").asString());

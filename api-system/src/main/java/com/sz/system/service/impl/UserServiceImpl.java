@@ -7,7 +7,10 @@ import com.sz.common.exception.ServiceException;
 import com.sz.system.dao.UserMapper;
 import com.sz.system.pojo.dto.UserDTO;
 import com.sz.system.pojo.entity.User;
+import com.sz.system.pojo.vo.LoginUserVO;
 import com.sz.system.service.UserService;
+import com.sz.system.util.JwtUtil;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -25,7 +28,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
 
     @Override
-    public void login(UserDTO userDTO) throws ServiceException {
+    public LoginUserVO login(UserDTO userDTO) throws ServiceException {
 
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getAccount, userDTO.getAccount());
@@ -39,6 +42,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new ServiceException(ExceptionEnum.PASSWORD_ERROR);
         }
 
+        LoginUserVO loginUserVO = new LoginUserVO();
+        BeanUtils.copyProperties(user, loginUserVO);
+        //todo 待完善
+        if (user.getAccount().equals("admin")) {
+            loginUserVO.setIsAdmin(true);
+        }
+        String token = JwtUtil.createToken(user);
+        loginUserVO.setToken(token);
+        return loginUserVO;
 
     }
 }
