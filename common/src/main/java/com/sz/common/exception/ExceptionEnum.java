@@ -5,6 +5,11 @@ package com.sz.common.exception;
  * @date 2022-09-15
  */
 public enum ExceptionEnum {
+
+    ACCOUNT_NOT_EXIST(1001,"账号不存在"),
+    PASSWORD_ERROR(1001,"账号不存在"),
+
+
     ;
 
 

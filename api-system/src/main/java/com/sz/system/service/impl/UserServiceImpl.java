@@ -2,6 +2,8 @@ package com.sz.system.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.sz.common.exception.ExceptionEnum;
+import com.sz.common.exception.ServiceException;
 import com.sz.system.dao.UserMapper;
 import com.sz.system.pojo.dto.UserDTO;
 import com.sz.system.pojo.entity.User;
@@ -22,18 +24,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
 
 
-    //todo 接口待完善
     @Override
-    public void login(UserDTO userDTO) {
+    public void login(UserDTO userDTO) throws ServiceException {
+
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getAccount, userDTO.getAccount());
         User user = userMapper.selectOne(queryWrapper);
         if (user == null) {
-            throw new RuntimeException("账号不存在");
+            throw new ServiceException(ExceptionEnum.ACCOUNT_NOT_EXIST);
         }
 
+        //todo 密码校验待调整，数据库不能存储明文密码
         if (!userDTO.getPassword().equals(userDTO.getPassword())) {
-            throw new RuntimeException("密码错误");
+            throw new ServiceException(ExceptionEnum.PASSWORD_ERROR);
         }
 
 

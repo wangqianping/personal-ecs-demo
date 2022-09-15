@@ -1,5 +1,6 @@
 package com.sz.system.controller;
 
+import com.sz.common.exception.ServiceException;
 import com.sz.common.response.Response;
 import com.sz.system.pojo.dto.UserDTO;
 import com.sz.system.pojo.entity.User;
@@ -39,7 +40,7 @@ public class AuthController {
 
     @ApiOperation(value = "账号密码登入")
     @PostMapping("/login")
-    public Response login(@RequestBody UserDTO userDTO) {
+    public Response login(@RequestBody UserDTO userDTO) throws ServiceException {
         userService.login(userDTO);
         return Response.success();
     }
