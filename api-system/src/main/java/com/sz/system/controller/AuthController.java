@@ -4,6 +4,7 @@ import com.sz.common.exception.ServiceException;
 import com.sz.common.response.Response;
 import com.sz.system.pojo.dto.UserDTO;
 import com.sz.system.pojo.entity.User;
+import com.sz.system.pojo.vo.LoginUserVO;
 import com.sz.system.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,8 +27,8 @@ public class AuthController {
     @ApiOperation(value = "账号密码登入")
     @PostMapping("/login")
     public Response login(@RequestBody UserDTO userDTO) throws ServiceException {
-        userService.login(userDTO);
-        return Response.success();
+        LoginUserVO loginUserVO = userService.login(userDTO);
+        return Response.success(loginUserVO);
     }
 
     @ApiOperation(value = "注册接口")
