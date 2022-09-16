@@ -3,48 +3,47 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 
-const actions = {
-
-}
+const actions = {}
 
 const mutations = {
-    
-    SET_TOKEN(state,token){
-          state.token = token;
-          localStorage.setItem('token',token)  
-    },
-    
-    SET_USER(state,userInfo){
-        state.userInfo.token = userInfo.token;
-        state.userInfo.userId = userInfo.userId;
-        state.userInfo.username = userInfo.username;
-        state.userInfo.account = userInfo.account; 
+
+    SET_TOKEN(state, token) {
+        state.token = token;
     },
 
-    REMOVE_TOKEN(state){
-         state.token = '';
-         state.userInfo = {
-            token:'',
-            userId:'',
-            username:'',
-            account:'' 
-         }
-         localStorage.setItem('token')
+    SET_USER(state, userInfo) {
+        state.userInfo.token = userInfo.token;
+        state.userInfo.id = userInfo.id;
+        state.userInfo.name = userInfo.name;
+        state.userInfo.isAdmin = userInfo.isAdmin;
+        state.userInfo.account = userInfo.account;
+    },
+
+    REMOVE_TOKEN(state) {
+        state.token = null;
+        state.userInfo = {
+            token: null,
+            id: null,
+            name: null,
+            account: null,
+            isAdmin: false
+        }
     }
 }
 
 const state = {
-    token:'',
-    userInfo:{
-        token:'',
-        userId:'',
-        username:'',
-        account:'' 
+    token: '',
+    userInfo: {
+        token: null,
+        id: null,
+        name: null,
+        account: null,
+        isAdmin: false
     }
 }
 
 const getters = {
-    TOKEN(state){
+    TOKEN(state) {
         return state.token;
     }
 }
