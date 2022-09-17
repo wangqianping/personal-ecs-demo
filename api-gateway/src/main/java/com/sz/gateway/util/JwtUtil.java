@@ -1,12 +1,12 @@
 package com.sz.gateway.util;
 
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.auth0.jwt.interfaces.Claim;
-import com.auth0.jwt.interfaces.DecodedJWT;
-import com.auth0.jwt.interfaces.JWTVerifier;
-
-import java.util.Map;
+import com.auth0.jwt.exceptions.AlgorithmMismatchException;
+import com.auth0.jwt.exceptions.InvalidClaimException;
+import com.auth0.jwt.exceptions.SignatureVerificationException;
+import com.auth0.jwt.exceptions.TokenExpiredException;
 
 /**
  * jwt 工具类
@@ -16,25 +16,30 @@ import java.util.Map;
  */
 public class JwtUtil {
 
+    private final static String SECRET = "test_secret_at_20220915_by_wqp";
 
-    private final Integer EXPIRATION = 30 * 60;
 
-    private final String SECRET = "test_secret_at_20220915_by_wqp";
-
-    /**
-     * 解析token
-     */
-    public Map<String, Claim> verifyToken(String token) {
-        DecodedJWT jwt;
+    public static int verifyToken(String token) {
         try {
-            JWTVerifier verifier = JWT.require(Algorithm.HMAC256(SECRET)).build();
-            jwt = verifier.verify(token);
+            JWT.require(Algorithm.HMAC256(SECRET)).build().verify(token);
+        } catch (SignatureVerificationException e) {
+            //签名异常
+            return 1;
+        } catch (TokenExpiredException e) {
+            //令牌过期异常
+            return 2;
+        } catch (AlgorithmMismatchException e) {
+            //算法不一致异常
+            return 3;
+        } catch (InvalidClaimException e) {
+            //失效的payload异常
+            return 4;
         } catch (Exception e) {
-            System.out.println("token解码异常");
-            return null;
+            e.printStackTrace();
+            return 5;
         }
-
-        return jwt.getClaims();
+        return 0;
     }
+
 
 }
