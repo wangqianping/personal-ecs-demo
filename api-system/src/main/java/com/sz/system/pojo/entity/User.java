@@ -35,4 +35,7 @@ public class User extends BaseEntity implements Serializable {
     @ApiModelProperty(value = "邮箱")
     private String email;
 
+    @ApiModelProperty(value = "头像")
+    private String profilePhoto;
+
 }

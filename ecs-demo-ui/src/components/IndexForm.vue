@@ -3,7 +3,9 @@
     <el-container>
       <el-aside width="180px"> 
         <div id="logo">
-          logo 区
+          <a  href="/index" class="sidebar-logo-link router-link-active">
+            <img  src="../assets/logo.png" class="sidebar-logo">
+          </a>
         </div> 
         <el-menu class="el-menu-vertical-demo" text-color="rgb(191, 203, 217)" active-text-color="rgb(64, 158, 255)"
                   background-color="rgb(48, 65, 86)">
@@ -23,19 +25,27 @@
         <el-header>
           <div id="touxiang">
               <el-dropdown>
-                <span class="el-dropdown-link">
-                  <el-avatar>admin</el-avatar>
+                <span>
+                      <el-row :gutter="45">     
+                        <el-col :span="6">
+                          <div class="grid-content img">
+                            <el-avatar class="el-dropdown-link" src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"/>
+                          </div>
+                        </el-col>
+                    </el-row>
                 </span>
                 <el-dropdown-menu slot="dropdown">
                   <el-dropdown-item>个人信息</el-dropdown-item>
                   <el-dropdown-item>修改密码</el-dropdown-item>
-                  <el-dropdown-item>推出登入</el-dropdown-item>
+                  <el-dropdown-item @click.native="logout">退出登入</el-dropdown-item>
                 </el-dropdown-menu>
               </el-dropdown>
           </div>  
         </el-header>
           
-        <el-main>内容区</el-main>
+        <el-main> 
+         
+        </el-main>
       
       </el-container>
 
@@ -44,8 +54,16 @@
 </template>
 
 <script>
+
 export default {
   name: 'IndexForm',
+  methods: {
+    logout(){
+      localStorage.removeItem("token")
+      this.$store.commit("REMOVE_TOKEN")
+      this.$router.push("/")
+    }
+  }
 }
 </script>
 
@@ -61,19 +79,24 @@ export default {
 
   #touxiang {
     float: right;
-    text-align: center;
     padding-top: 10px;
+  }
+
+  .el-dropdown-link{
+    background-color: rgba(64, 255, 236, 0.556);
   }
   
   #logo {
+   background-color: rgb(48, 65, 86);
    text-align: center;
+   height: 60px;
   }
 
   .el-aside {
     background-color: rgb(48, 65, 86);
     color: white;
     text-align: left;
-    line-height: 50px;
+    line-height: 10px;
     height: 100%;
     position: fixed;
   }

@@ -27,7 +27,8 @@ const mutations = {
             id: null,
             name: null,
             account: null,
-            isAdmin: false
+            isAdmin: false,
+            profilePhoto: null
         }
         localStorage.removeItem("token");
     }
@@ -45,8 +46,11 @@ const state = {
 }
 
 const getters = {
-    TOKEN(state) {
-        return state.token;
+    TOKEN() {
+        return localStorage.getItem("token");
+    },
+    USER(state){
+        return state.userInfo    
     }
 }
 
