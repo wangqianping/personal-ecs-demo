@@ -9,6 +9,7 @@ const mutations = {
 
     SET_TOKEN(state, token) {
         state.token = token;
+        localStorage.setItem("token",token);
     },
 
     SET_USER(state, userInfo) {
@@ -28,6 +29,7 @@ const mutations = {
             account: null,
             isAdmin: false
         }
+        localStorage.removeItem("token");
     }
 }
 
