@@ -12,7 +12,6 @@ import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.core.Ordered;
 import org.springframework.core.io.buffer.DataBuffer;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.server.RequestPath;
 import org.springframework.stereotype.Component;
 import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Flux;
@@ -35,7 +34,7 @@ public class JwtFilter implements GlobalFilter, Ordered {
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
 
-        RequestPath path = exchange.getRequest().getPath();
+        String path = exchange.getRequest().getPath().value();
         //白名单放行
         if (whiteList.getAllowPaths().contains(path)) {
             return chain.filter(exchange);
@@ -50,8 +49,6 @@ public class JwtFilter implements GlobalFilter, Ordered {
         }
 
         JwtUtil.verifyToken(token);
-        //todo 存储用户token信息
-
         return chain.filter(exchange);
     }
 

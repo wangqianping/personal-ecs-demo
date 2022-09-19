@@ -13,7 +13,7 @@
           <el-submenu index="2">
             <template slot="title"><i class="el-icon-message"></i>系统管理</template>
             <el-menu-item-group>
-              <el-menu-item index="2-1">用户管理</el-menu-item>
+              <el-menu-item index="2-1" @click="getAllUser">用户管理</el-menu-item>
               <el-menu-item index="2-2">菜单管理</el-menu-item>
               <el-menu-item index="2-3">权限管理</el-menu-item>
             </el-menu-item-group>
@@ -62,6 +62,29 @@ export default {
       localStorage.removeItem("token")
       this.$store.commit("REMOVE_TOKEN")
       this.$router.push("/")
+    },
+    getAllUser(){
+      this.$axios.get("/user/listUser")
+          .then(
+              rsp => {
+                const data = rsp.data;
+                if (data.code == 200) {
+                  const result = data.data;
+                  console.log(result)
+                } else {
+                  this.$message.error({
+                    message: data.message,
+                    center: true
+                  })
+                }
+              })
+          .catch(
+              error => {
+                this.$message.error({
+                  message: error.message,
+                  center: true
+                })
+              })
     }
   }
 }
