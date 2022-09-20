@@ -3,7 +3,9 @@
     <el-aside width="200px"><menu-form/></el-aside>
     <el-container>
       <el-header height="60px"><header-form/></el-header>
-      <el-main></el-main>
+      <el-main>
+        <h1>至于画什么暂时还没想好，我写这个东西就是单纯地想掌握一个前端框架并不是想成为一个前端工程师</h1>
+      </el-main>
     </el-container>
   </el-container>
 </template>
