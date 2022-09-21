@@ -10,10 +10,12 @@ import com.sz.system.pojo.entity.User;
 import com.sz.system.pojo.vo.LoginUserVO;
 import com.sz.system.service.UserService;
 import com.sz.system.util.JwtUtil;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 
 /**
@@ -52,5 +54,17 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         loginUserVO.setToken(token);
         return loginUserVO;
 
+    }
+
+    @Override
+    public List<User> listUser(String account, String name) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        if(StringUtils.isNotEmpty(account)){
+            queryWrapper.eq(User::getAccount,account);
+        }
+        if(StringUtils.isNotEmpty(name)){
+            queryWrapper.like(User::getName,name);
+        }
+        return userMapper.selectList(queryWrapper);
     }
 }

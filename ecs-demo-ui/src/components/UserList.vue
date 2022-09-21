@@ -5,20 +5,20 @@
             <el-header height="60px"><HeaderForm/></el-header>
             <el-main>
                 <div id="queryForm">
-                    <el-row :gutter="50">
-                        <el-col :span="6">
+                    <el-row :gutter="10">
+                        <el-col :span="5">
                             <el-input v-model="queryParam.account" placeholder="请输入账号"></el-input>
                         </el-col>
-                        <el-col :span="6">
+                        <el-col :span="5">
                             <el-input v-model="queryParam.name" placeholder="请输入姓名"></el-input>
                         </el-col>
-                        <el-col :span="1">
+                        <el-col :span="2">
                             <el-button
                                 size="large"
                                 type="primary"
-                                @click="handleQuery()">查询</el-button>
+                                @click="handleQuery">查询</el-button>
                         </el-col>
-                        <el-col :span="1">
+                        <el-col :span="2">
                           <el-button
                               size="large"
                               type="primary"
@@ -54,15 +54,15 @@
                                     <el-button
                                     size="mini"
                                     type="primary"
-                                    @click="handleDetail(scope.$index, scope.row)">详情</el-button>
+                                    @click="handleDetail(scope.row)">详情</el-button>
                                     <el-button
                                     size="mini"
                                     type="primary"
-                                    @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
+                                    @click="handleEdit(scope.row)">编辑</el-button>
                                     <el-button
                                     size="mini"
                                     type="danger"
-                                    @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                                    @click="handleDelete(scope.row.id)">删除</el-button>
                                 </template>
                             </el-table-column>
                         </el-table>
@@ -70,6 +70,47 @@
                 </div>
             </el-main>
         </el-container>
+
+
+        <el-dialog
+            title="用户详情"
+            :visible.sync="dialogVisible"
+            width="40%">
+            <div>
+                <el-form :inline="true" :model="currentUser" class="demo-form-inline">
+                    <el-row :gutter="10">
+                        <el-col :span="12">
+                            <el-form-item label="名称">
+                                <el-input v-model="currentUser.name" :disabled="editFlag"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                            <el-form-item label="账号">
+                                <el-input v-model="currentUser.account" :disabled="editFlag"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                    <el-row :gutter="10">
+                        <el-col :span="12">
+                            <el-form-item label="邮箱">
+                                <el-input v-model="currentUser.email" :disabled="editFlag"></el-input>
+                            </el-form-item>
+                        </el-col>
+                        <el-col :span="12">
+                            <el-form-item label="电话">
+                                <el-input v-model="currentUser.phone" :disabled="editFlag"></el-input>
+                            </el-form-item>
+                        </el-col>
+                    </el-row>
+                 </el-form>
+            </div>
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="cancel">取 消</el-button>
+                <el-button type="primary" @click="submit" :disabled="editFlag">确 定</el-button>
+            </span>
+        </el-dialog>
+
+
     </el-container>
 </template>
 
@@ -85,8 +126,17 @@ import HeaderForm from "./HeaderForm.vue";
         return {
             tableData: [],
             queryParam: {
-                account: null,
-                name: null
+                account: '',
+                name: ''
+            }, 
+            dialogVisible: false,
+            editFlag: false,
+            currentUser: {
+                id: null,
+                account: '',
+                name: '',
+                phone: '',
+                email: ''    
             }
         }    
     },
@@ -95,7 +145,12 @@ import HeaderForm from "./HeaderForm.vue";
     },
     methods: {
         getAllUser() {
-            this.$axios.get("/user/listUser")
+            this.$axios.get("/user/listUser",{
+                params:{
+                    "account": this.queryParam.account,
+                    "name": this.queryParam.name
+                }
+            })
                 .then(rsp => {
                 const data = rsp.data;
                 if (data.code == 200) {
@@ -116,20 +171,101 @@ import HeaderForm from "./HeaderForm.vue";
                 });
             });
         },
+        saveUser(){
+            this.$axios.post("/user/saveUser",this.currentUser)
+                  .then(rsp =>{
+                    this.$message.success({
+                        message:rsp.data.message,
+                        center:true
+                    })
+                  })
+                  .catch(error =>{
+                    this.$message.error({
+                    message: error.message,
+                    center: true
+                });
+                  })
+        },
+        updateUser(){
+            this.$axios.post("/user/updateUser",this.currentUser)
+                  .then(rsp =>{
+                    this.$message.success({
+                        message:rsp.data.message,
+                        center:true
+                    })
+                  })
+                  .catch(error =>{
+                    this.$message.error({
+                    message: error.message,
+                    center: true
+                });
+                })
+        },
+        deleteUser(id){
+            this.$axios.delete("/user/deleteUser",{
+                params:{id:id}
+            })
+                  .then(rsp =>{
+                    this.$message.success({
+                        message:rsp.data.message,
+                        center:true
+                    })
+                  })
+                  .catch(error =>{
+                    this.$message.error({
+                    message: error.message,
+                    center: true
+                });
+                  })
+        },
         handleQuery(){
-          this.$message.error("这个正在加班做！")
+          this.getAllUser();
         },
-        handleDetail(){
-          this.$message.error("这个没做！")
+        handleDetail(row){
+          this.currentUser = row;
+          this.dialogVisible = true;
+          this.editFlag = true;
         },
-        handleEdit(){
-          this.$message.error("这个也没做！")
+        handleEdit(row){
+          this.currentUser = row;
+          this.dialogVisible = true;
+          this.editFlag = false;
         },
-        handleDelete(){
-          this.$message.error("这个还是没做！")
+        handleDelete(id){
+            this.$confirm('此操作将永久删除该用户, 是否继续?', '提示', {
+                confirmButtonText: '确定',
+                cancelButtonText: '取消',
+                type: 'warning'
+                }).then(() => {
+                    this.deleteUser(id)
+                    this.$router.go(0) //刷新页面  
+                });
+            
         },
         handleCreate(){
-          this.$message.error("别点了，都没做！")
+          this.clearCurrentUser();
+          this.dialogVisible = true;
+          this.editFlag = false;
+        },
+        clearCurrentUser(){
+            this.currentUser.id = null;
+            this.currentUser.name = null;
+            this.currentUser.account = null;
+            this.currentUser.phone = null;
+            this.currentUser.email = null;
+        },
+        submit(){
+            this.dialogVisible = false;
+            if(this.currentUser.id == null){
+                this.saveUser();
+                this.$router.go(0) //刷新页面 
+            }else{
+                this.updateUser();
+            }
+        },
+        cancel(){
+            this.dialogVisible = false;
+            this.clearCurrentUser();
         }
 
     },

@@ -6,6 +6,8 @@ import com.sz.system.pojo.dto.UserDTO;
 import com.sz.system.pojo.entity.User;
 import com.sz.system.pojo.vo.LoginUserVO;
 
+import java.util.List;
+
 
 /**
  * @author wangqianping
@@ -19,4 +21,12 @@ public interface UserService extends IService<User> {
      * @throws ServiceException
      */
     LoginUserVO login(UserDTO userDTO) throws ServiceException;
+
+    /**
+     * 条件查询用户列表
+     * @param account
+     * @param name
+     * @return
+     */
+    List<User> listUser(String account, String name);
 }
