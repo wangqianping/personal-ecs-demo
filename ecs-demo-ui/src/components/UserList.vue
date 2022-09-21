@@ -5,26 +5,21 @@
             <el-header height="60px"><HeaderForm/></el-header>
             <el-main>
                 <div id="queryForm">
-                    <el-row :gutter="10">
-                        <el-col :span="5">
+                    
+                    <el-form :inline="true" :model="queryParam" class="demo-form-inline">
+                        <el-form-item label="账号：">
                             <el-input v-model="queryParam.account" placeholder="请输入账号"></el-input>
-                        </el-col>
-                        <el-col :span="5">
+                        </el-form-item>
+                        <el-form-item label="名称：">
                             <el-input v-model="queryParam.name" placeholder="请输入姓名"></el-input>
-                        </el-col>
-                        <el-col :span="2">
-                            <el-button
-                                size="large"
-                                type="primary"
-                                @click="handleQuery">查询</el-button>
-                        </el-col>
-                        <el-col :span="2">
-                          <el-button
-                              size="large"
-                              type="primary"
-                              @click="handleCreate">创建</el-button>
-                        </el-col>
-                    </el-row>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button size="large" type="primary" @click="handleQuery">查询</el-button>
+                        </el-form-item>
+                        <el-form-item>
+                            <el-button size="large" type="primary" @click="handleCreate">创建</el-button>
+                        </el-form-item>    
+                    </el-form>
                 </div>
                 <div id="dataTable">
                     <el-row >
@@ -258,14 +253,14 @@ import HeaderForm from "./HeaderForm.vue";
             this.dialogVisible = false;
             if(this.currentUser.id == null){
                 this.saveUser();
-                this.$router.go(0) //刷新页面 
             }else{
                 this.updateUser();
             }
+            this.$router.go(0) //刷新页面 
         },
         cancel(){
             this.dialogVisible = false;
-            this.clearCurrentUser();
+            this.$router.go(0) //刷新页面 
         }
 
     },
@@ -292,5 +287,7 @@ import HeaderForm from "./HeaderForm.vue";
     height: 70px;
     margin-top: 10px;
 }
-
+.demo-form-inline {
+    float:left
+}
 </style>
