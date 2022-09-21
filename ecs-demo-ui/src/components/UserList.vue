@@ -12,16 +12,22 @@
                         <el-col :span="6">
                             <el-input v-model="queryParam.name" placeholder="请输入姓名"></el-input>
                         </el-col>
-                        <el-col :span="3">
+                        <el-col :span="1">
                             <el-button
                                 size="large"
                                 type="primary"
-                                @click="handleDetail(scope.$index, scope.row)">查询</el-button>
+                                @click="handleQuery()">查询</el-button>
+                        </el-col>
+                        <el-col :span="1">
+                          <el-button
+                              size="large"
+                              type="primary"
+                              @click="handleCreate">创建</el-button>
                         </el-col>
                     </el-row>
                 </div>
                 <div id="dataTable">
-                    <el-row >    
+                    <el-row >
                         <el-table :data="tableData">
                             <el-table-column
                                 prop="account"
@@ -110,15 +116,22 @@ import HeaderForm from "./HeaderForm.vue";
                 });
             });
         },
+        handleQuery(){
+          this.$message.error("这个正在加班做！")
+        },
         handleDetail(){
-
+          this.$message.error("这个没做！")
         },
         handleEdit(){
-
+          this.$message.error("这个也没做！")
         },
         handleDelete(){
-
+          this.$message.error("这个还是没做！")
+        },
+        handleCreate(){
+          this.$message.error("别点了，都没做！")
         }
+
     },
 }
 </script>
