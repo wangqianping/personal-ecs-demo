@@ -5,12 +5,12 @@
             <el-header height="60px"><HeaderForm/></el-header>
             <el-main>
                 <el-row :gutter="10">
-                  <el-col :span="10">
+                  <el-col :span="24">
                     <el-form :inline="true" :model="queryParam" class="demo-form-inline">
-                          <el-form-item label="账号：">
+                          <el-form-item label="账号">
                               <el-input v-model="queryParam.account" placeholder="请输入账号"></el-input>
                           </el-form-item>
-                          <el-form-item label="名称：">
+                          <el-form-item label="名称">
                               <el-input v-model="queryParam.name" placeholder="请输入姓名"></el-input>
                           </el-form-item>
                           <el-form-item>
@@ -284,4 +284,9 @@ import HeaderForm from "./HeaderForm.vue";
     margin-left: 200px;
     line-height: 10px;
 }
+
+.demo-form-inline{
+    float: left;
+}
+
 </style>
