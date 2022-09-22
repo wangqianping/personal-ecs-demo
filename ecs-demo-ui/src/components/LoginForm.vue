@@ -2,7 +2,7 @@
   <div id="background">
     <div class="login">
       <el-form :model="user" class="demo-form-inline" label-width="40px">
-        <el-form-item class="input-reader-name" id="account">
+        <el-form-item class="input-reader-name">
           <el-input v-model="user.account" aria-required="true" placeholder="Please input account"
                     suffix-icon="el-icon-user"/>
         </el-form-item>
@@ -10,8 +10,8 @@
           <el-input v-model="user.password" aria-required="true" type="password" placeholder="Please input password"
                     suffix-icon="el-icon-lock"/>
         </el-form-item>
-        <el-form-item>
-          <el-button id="button" type="primary" @click="login">登入</el-button>
+        <el-form-item class="input-reader-name">
+          <el-button  type="primary" @click="login">登入</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -80,26 +80,16 @@ export default {
   top: 50%;
   transform: translate(-50%, -50%);
   background-color: rgba(66, 79, 119, 0.843);
-  /* border: 1px solid; */
 }
 
-::v-deep .input-reader-name {
-  width: 60%;
-  padding-left: 15%;
-  padding-right: 15%;
-}
-
-#account {
-  padding-top: 10%;
-}
-
-.lable {
-  color: black;
-  font-weight: 900;
-}
-
-#button {
-  margin-left: -10%;
+.demo-form-inline {
+  width: 300px;
+  height: 150px;
+  position: absolute;
+  left: 45%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(66, 79, 119, 0.843);
 }
 
 </style>
