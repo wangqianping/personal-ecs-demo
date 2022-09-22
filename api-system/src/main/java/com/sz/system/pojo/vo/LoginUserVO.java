@@ -22,7 +22,12 @@ public class LoginUserVO {
     @ApiModelProperty(value = "是否是管理员")
     private Boolean isAdmin;
 
+    @ApiModelProperty(value = "头像")
+    private String profilePhoto;
+
     @ApiModelProperty(value = "令牌")
     private String token;
+
+
 
 }

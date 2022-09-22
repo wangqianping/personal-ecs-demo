@@ -4,25 +4,26 @@
         <el-container>
             <el-header height="60px"><HeaderForm/></el-header>
             <el-main>
-                <div id="queryForm">
-                    
+                <el-row :gutter="10">
+                  <el-col :span="10">
                     <el-form :inline="true" :model="queryParam" class="demo-form-inline">
-                        <el-form-item label="账号：">
-                            <el-input v-model="queryParam.account" placeholder="请输入账号"></el-input>
-                        </el-form-item>
-                        <el-form-item label="名称：">
-                            <el-input v-model="queryParam.name" placeholder="请输入姓名"></el-input>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button size="large" type="primary" @click="handleQuery">查询</el-button>
-                        </el-form-item>
-                        <el-form-item>
-                            <el-button size="large" type="primary" @click="handleCreate">创建</el-button>
-                        </el-form-item>    
-                    </el-form>
-                </div>
-                <div id="dataTable">
-                    <el-row >
+                          <el-form-item label="账号：">
+                              <el-input v-model="queryParam.account" placeholder="请输入账号"></el-input>
+                          </el-form-item>
+                          <el-form-item label="名称：">
+                              <el-input v-model="queryParam.name" placeholder="请输入姓名"></el-input>
+                          </el-form-item>
+                          <el-form-item>
+                              <el-button size="large" type="primary" @click="handleQuery">查询</el-button>
+                          </el-form-item>
+                          <el-form-item>
+                              <el-button size="large" type="primary" @click="handleCreate">创建</el-button>
+                          </el-form-item>
+                      </el-form>
+                  </el-col>
+                </el-row>
+                <el-row>
+                  <el-col :span="24">
                         <el-table :data="tableData">
                             <el-table-column
                                 prop="account"
@@ -61,8 +62,8 @@
                                 </template>
                             </el-table-column>
                         </el-table>
-                    </el-row>
-                </div>
+                  </el-col>
+                </el-row>
             </el-main>
         </el-container>
 
@@ -117,6 +118,7 @@ import HeaderForm from "./HeaderForm.vue";
  export default {
     name: "UserList",
     components: { MenuForm, HeaderForm },
+    inject: ["reload"],
     data(){
         return {
             tableData: [],
@@ -233,7 +235,7 @@ import HeaderForm from "./HeaderForm.vue";
                 type: 'warning'
                 }).then(() => {
                     this.deleteUser(id)
-                    this.$router.go(0) //刷新页面  
+                    this.reload();
                 });
             
         },
@@ -256,11 +258,11 @@ import HeaderForm from "./HeaderForm.vue";
             }else{
                 this.updateUser();
             }
-            this.$router.go(0) //刷新页面 
+            this.reload();
         },
         cancel(){
             this.dialogVisible = false;
-            this.$router.go(0) //刷新页面 
+            this.reload();
         }
 
     },
@@ -281,13 +283,5 @@ import HeaderForm from "./HeaderForm.vue";
 .el-main {
     margin-left: 200px;
     line-height: 10px;
-}
-
-#queryForm {
-    height: 70px;
-    margin-top: 10px;
-}
-.demo-form-inline {
-    float:left
 }
 </style>

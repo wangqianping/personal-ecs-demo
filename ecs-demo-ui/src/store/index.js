@@ -18,6 +18,7 @@ const mutations = {
         state.userInfo.name = userInfo.name;
         state.userInfo.isAdmin = userInfo.isAdmin;
         state.userInfo.account = userInfo.account;
+        state.userInfo.profilePhoto = userInfo.profilePhoto;
     },
 
     REMOVE_TOKEN(state) {
@@ -41,7 +42,8 @@ const state = {
         id: null,
         name: null,
         account: null,
-        isAdmin: false
+        isAdmin: false,
+        profilePhoto: null
     }
 }
 

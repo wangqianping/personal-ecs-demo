@@ -2,6 +2,7 @@ import Router from "vue-router";
 import LoginForm from "@/components/LoginForm";
 import IndexForm from "@/components/IndexForm";
 import UserList from "@/components/UserList.vue"
+import UserInformation from "@/components/UserInformation";
 // import store from "@/store";
 
 const router = new Router({
@@ -18,6 +19,10 @@ const router = new Router({
             {
                 path:'/userList',
                 component: UserList
+            },
+            {
+                path:'/userInformation',
+                component: UserInformation
             }
         ]
     }
