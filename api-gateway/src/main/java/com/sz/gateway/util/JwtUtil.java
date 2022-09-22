@@ -16,29 +16,30 @@ import com.auth0.jwt.exceptions.TokenExpiredException;
  */
 public class JwtUtil {
 
+
     private final static String SECRET = "test_secret_at_20220915_by_wqp";
 
 
-    public static int verifyToken(String token) {
+    public static void verifyToken(String token) {
         try {
             JWT.require(Algorithm.HMAC256(SECRET)).build().verify(token);
         } catch (SignatureVerificationException e) {
             //签名异常
-            return 1;
+            e.printStackTrace();
         } catch (TokenExpiredException e) {
             //令牌过期异常
-            return 2;
+            e.printStackTrace();
         } catch (AlgorithmMismatchException e) {
             //算法不一致异常
-            return 3;
+            e.printStackTrace();
         } catch (InvalidClaimException e) {
             //失效的payload异常
-            return 4;
+            e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-            return 5;
+            e.printStackTrace();
         }
-        return 0;
+
     }
 
 
