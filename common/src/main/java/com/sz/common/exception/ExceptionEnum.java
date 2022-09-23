@@ -7,7 +7,8 @@ package com.sz.common.exception;
 public enum ExceptionEnum {
 
     ACCOUNT_NOT_EXIST(1001,"账号不存在"),
-    PASSWORD_ERROR(1001,"密码错误"),
+    PASSWORD_ERROR(1002,"密码错误"),
+    OLD_PASSWORD_ERROR(1003,"旧密码输入错误")
 
 
     ;
