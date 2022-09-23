@@ -3,7 +3,7 @@
     <el-dropdown>
           <span>
             <el-avatar class="el-dropdown-link"
-                       :src="$store.getters.USER.profilePhoto"/>
+                       :src="$store.getters.PROFILE_PHOTO"/>
           </span>
       <el-dropdown-menu slot="dropdown">
         <el-dropdown-item @click.native="goInformation">个人信息</el-dropdown-item>
@@ -19,12 +19,12 @@ export default {
   methods: {
     logout() {
       localStorage.removeItem("token")
-      this.$store.commit("REMOVE_TOKEN")
+      this.$store.commit("LogOut")
       this.$router.push("/")
     },
     goInformation() {
-      this.$router.push("/userInformation")
-    }
+      this.$router.push({path: "/userInformation", query: {userId: this.$store.getters.USER_ID}})
+    },
   }
 }
 </script>

@@ -2,6 +2,7 @@ package com.sz.system.controller;
 
 import com.sz.common.exception.ServiceException;
 import com.sz.common.response.Response;
+import com.sz.system.pojo.dto.PasswordDTO;
 import com.sz.system.pojo.dto.UserDTO;
 import com.sz.system.pojo.entity.User;
 import com.sz.system.pojo.vo.LoginUserVO;
@@ -30,6 +31,15 @@ public class AuthController {
         LoginUserVO loginUserVO = userService.login(userDTO);
         return Response.success(loginUserVO);
     }
+
+
+    @ApiOperation(value = "修改密码")
+    @PostMapping("/updatePassword")
+    public Response updatePassword(@RequestBody PasswordDTO passwordDTO) throws ServiceException {
+        userService.updatePassword(passwordDTO);
+        return Response.success();
+    }
+
 
     @ApiOperation(value = "注册接口")
     @PostMapping("/register")

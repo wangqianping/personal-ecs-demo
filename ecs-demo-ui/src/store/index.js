@@ -19,18 +19,13 @@ const mutations = {
         state.userInfo.isAdmin = userInfo.isAdmin;
         state.userInfo.account = userInfo.account;
         state.userInfo.profilePhoto = userInfo.profilePhoto;
+        localStorage.setItem("profilePhoto",userInfo.profilePhoto);
+        localStorage.setItem("id",userInfo.id);
     },
 
-    REMOVE_TOKEN(state) {
+    LogOut(state) {
         state.token = null;
-        state.userInfo = {
-            token: null,
-            id: null,
-            name: null,
-            account: null,
-            isAdmin: false,
-            profilePhoto: null
-        }
+        localStorage.removeItem("token");
         localStorage.removeItem("token");
     }
 }
@@ -51,8 +46,14 @@ const getters = {
     TOKEN() {
         return localStorage.getItem("token");
     },
+    PROFILE_PHOTO(){
+        return localStorage.getItem("profilePhoto");
+    },
     USER(state){
         return state.userInfo    
+    },
+    USER_ID(){
+        return localStorage.getItem("id");
     }
 }
 
