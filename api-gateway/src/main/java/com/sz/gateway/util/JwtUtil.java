@@ -37,7 +37,6 @@ public class JwtUtil {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-            e.printStackTrace();
         }
 
     }

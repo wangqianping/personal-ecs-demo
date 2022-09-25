@@ -14,8 +14,16 @@
               <el-image style="height: 150px;width: 150px;border-radius: 50%" :src="currentUser.profilePhoto"/>
               <el-upload
                   class="upload-demo"
-                  action=""
-                  :file-list="profilePhotos">
+                  action="http://localhost:8001/user/uploadProfilePhoto"
+                  :headers="{Authorization:$store.getters.TOKEN}"
+                  :file-list="profilePhotos"
+                  :before-upload="beforeHandler"
+                  :on-success="successHandler"
+                  :on-error="errorHandler"	
+                  :on-remove="removeHandler"
+                  :limit="1"
+                  :show-file-list="false"	
+                  :auto-upload="true">
                 <el-button style="margin-top:15px" size="small" type="primary">点击上传</el-button>
                 <div slot="tip" class="el-upload__tip">上传文件且不超过500kb</div>
               </el-upload>
@@ -97,6 +105,7 @@ export default {
         confirmWord: ""
       },
       dialogVisible: false,
+      action: "",
       rules: {
         oldWord: {required: true, message: "请输入密码", trigger: 'blur'},
         newWord: {required: true, message: "请输入密码", trigger: 'blur'},
@@ -109,6 +118,38 @@ export default {
     this.getUserDetail()
   },
   methods: {
+    
+    beforeHandler(file){
+        const imageSize = file.size/1024/1024
+        if(imageSize>0.75){
+           this.$message.error({
+            message:"图片太大超出限制，请重新上传合适的头像",
+            center:true
+           }) 
+           return false;
+        }
+        return true;
+    },
+
+    successHandler(){
+      console.log(this.currentUser.profilePhoto);
+      console.log("上传成功")
+      this.profilePhotos.length;
+    },
+
+    errorHandler(error,file,fileList){
+      console.log("errorHandler");
+      console.log(error);
+      console.log(file);
+      console.log(fileList);
+    },
+
+    removeHandler(file,fileList){
+      console.log("removeHandler");
+      console.log(file);
+      console.log(fileList);
+
+    },
 
     getUserDetail() {
       this.$axios.get("/user/getUserById", {
@@ -177,20 +218,6 @@ export default {
 </script>
 
 <style scoped>
-
-/*.el-aside {*/
-/*  background-color: rgb(48, 65, 86);*/
-/*  color: white;*/
-/*  text-align: left;*/
-/*  line-height: 10px;*/
-/*  height: 100%;*/
-/*  position: fixed;*/
-/*}*/
-
-/*.el-main {*/
-/*  margin-left: 200px;*/
-/*  line-height: 10px;*/
-/*}*/
 
 .demo-form-inline {
   margin-top: 100px;

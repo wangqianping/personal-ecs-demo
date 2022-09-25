@@ -89,7 +89,6 @@ export default {
   left: 45%;
   top: 50%;
   transform: translate(-50%, -50%);
-  background-color: rgba(66, 79, 119, 0.843);
 }
 
 </style>
