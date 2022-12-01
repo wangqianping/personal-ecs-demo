@@ -12,6 +12,7 @@
         <module>api-gateway</module>
         <module>api-system</module>
         <module>common</module>
+        <module>aws</module>
     </modules>
 
     <properties>
