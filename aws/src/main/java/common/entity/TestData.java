@@ -1,6 +1,6 @@
 package common.entity;
 
-import demo.common.TsBaseEntity;
+import common.TsBaseEntity;
 import lombok.Data;
 
 import java.util.ArrayList;
